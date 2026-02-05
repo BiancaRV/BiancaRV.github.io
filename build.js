@@ -126,6 +126,7 @@ async function parseSitemapIndex(document) {
     `${STORE_URL}/policies/legal-notice`,
     `${STORE_URL}/policies/terms-of-service`,
     `${STORE_URL}/policies/privacy-policy`,
+    `${STORE_URL}/collections/all`,
   ];
 
   // Extraire toutes les URLs des sous-sitemaps

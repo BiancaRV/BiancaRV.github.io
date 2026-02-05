@@ -379,7 +379,58 @@
       --input-text-color: 255 255 255;
       --input-text-transform: none;
     }</style>
+<script data-keep="">
+  // This allows to expose several variables to the global scope, to be used in scripts
+  window.themeVariables = {
+    settings: {
+      pageType: "policy",
+      moneyFormat: "€{{amount_with_comma_separator}}",
+      moneyWithCurrencyFormat: "€{{amount_with_comma_separator}} EUR",
+      currencyCodeEnabled: false,
+      cartType: "page",staggerProducts: true
+    },
 
+    strings: {
+      addedToCart: "{{product_title}} a été ajouté au panier",
+      closeGallery: "Fermer la galerie",
+      zoomGallery: "Zoomer sur l\u0026#39;image",
+      errorGallery: "L\u0026#39;image ne peut pas etre chargée",
+      shippingEstimatorNoResults: "Nous ne livrons pas à votre ville.",
+      shippingEstimatorOneResult: "Il y a un résultat pour votre ville :",
+      shippingEstimatorMultipleResults: "Il y a plusieurs résultats pour votre ville :",
+      shippingEstimatorError: "Impossible d\u0026#39;estimer les frais de livraison :",
+      next: "Suivant",
+      previous: "Précédent"
+    },
+
+    mediaQueries: {
+      'sm': 'screen and (min-width: 700px)',
+      'md': 'screen and (min-width: 1000px)',
+      'lg': 'screen and (min-width: 1150px)',
+      'xl': 'screen and (min-width: 1400px)',
+      '2xl': 'screen and (min-width: 1600px)',
+      'max-sm': 'screen and (max-width: 699px)',
+      'max-md': 'screen and (max-width: 999px)',
+      'max-lg': 'screen and (max-width: 1149px)',
+      'max-xl': 'screen and (max-width: 1399px)',
+      'max-2xl': 'screen and (max-width: 1599px)',
+      'motion-safe': '(prefers-reduced-motion: no-preference)',
+      'motion-reduce': '(prefers-reduced-motion: reduce)',
+      'supports-hover': 'screen and (pointer: fine)',
+      'supports-touch': 'screen and (pointer: coarse)'
+    }
+  };document.addEventListener('DOMContentLoaded', () => {
+      // Normalize the appearance of policy pages
+      document.querySelector('.shopify-policy__title')?.classList.add('h2');
+      document.querySelector('.rte')?.classList.add('prose');
+    });window.Shopify = {
+      designMode: false,
+      loadFeatures() {},
+      routes: {
+        root: '/',
+      },
+    };
+</script>
 <script data-keep="">
       if (!(HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'))) {
         const importMapPolyfill = document.createElement('script');
