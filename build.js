@@ -122,7 +122,7 @@ async function parseShopifySitemap(mainSitemapUrl) {
 
 async function parseSitemapIndex(document) {
   const allUrls = [
-    STORE_URL,
+    // STORE_URL,
     `${STORE_URL}/policies/legal-notice`,
     `${STORE_URL}/policies/terms-of-service`,
     `${STORE_URL}/policies/privacy-policy`,
@@ -227,7 +227,8 @@ function cleanDOM(dom, pageUrl) {
   return dom
     .serialize()
     .replaceAll(STORE_URL, NEW_WEBSITE_URL)
-    .replaceAll(STORE_URL.replaceAll('/', '\\/'), NEW_WEBSITE_URL.replaceAll('/', '\\/'));
+    .replaceAll(STORE_URL.replaceAll('/', '\\/'), NEW_WEBSITE_URL.replaceAll('/', '\\/'))
+    .replaceAll('content="//', 'content="https://');
 }
 
 // Sauvegarder le fichier
@@ -282,8 +283,6 @@ async function main() {
 
   // Crawl le site
   crawlSite(urls);
-
-  return;
 
   // Génère la nouvelle sitemap
   const sitemap = generateSitemap(urls);
