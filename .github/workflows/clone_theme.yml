@@ -49,6 +49,7 @@ jobs:
           SHOPIFY_STORE_NAME: ${{ vars.SHOPIFY_STORE_NAME }}
           SHOPIFY_STORE_PASSWORD: ${{ secrets.SHOPIFY_STORE_PASSWORD }}
           NEW_WEBSITE_URL: ${{ vars.NEW_WEBSITE_URL }}
+          THEME_ID: ${{ vars.THEME_ID }}
           SHOPIFY_SIGNATURE: ${{ secrets.SHOPIFY_SIGNATURE }}
           SHOPIFY_SIGNATURE_INPUT: ${{ secrets.SHOPIFY_SIGNATURE_INPUT }}
         run: node build.js

@@ -5,9 +5,11 @@ import { URL } from 'url';
 
 const STORE_URL = `https://${process.env.SHOPIFY_STORE_NAME}.myshopify.com`;
 const NEW_WEBSITE_URL = process.env.NEW_WEBSITE_URL;
+const THEME_ID = process.env.THEME_ID;
+
 
 const SHOPIFY_STORE_PASSWORD = process.env.SHOPIFY_STORE_PASSWORD;
-const BUILD_DIR = './build';
+const BUILD_DIR = './docs';
 
 const HEADERS = {
   accept:
@@ -78,6 +80,20 @@ async function authenticateStorefront() {
     console.log('Authenticated successfully');
   } catch (error) {
     console.error('Authentication failed:', error.message);
+    throw error;
+  }
+}
+
+async function previewTheme(THEME_ID) {
+  try {
+    // 1. Charger la page de mot de passe pour obtenir les cookies initiaux
+    await JSDOM.fromURL(`${STORE_URL}?preview_theme_id=${THEME_ID}`, {
+      cookieJar,
+      resources: resourceLoader,
+      // runScripts: 'dangerously'
+    });
+  } catch (error) {
+    console.error('Previewing theme failed:', error.message);
     throw error;
   }
 }
@@ -198,7 +214,7 @@ function cleanDOM(dom, pageUrl) {
   // Cleaner la head
   // Supprimer tous les scripts indesirables
   const scriptsToRemove = document.querySelectorAll(
-    'head script:not([data-keep]):not([type="application/ld+json"]):not([type="importmap"])',
+    'head script:not([data-keep]):not([type="application/ld+json"]):not([type="importmap"])'
   );
   scriptsToRemove.forEach((script) => script.remove());
 
@@ -253,9 +269,8 @@ async function crawlSite(urls) {
 async function main() {
   console.log('=== Shopify Theme Clone with jsdom ===');
 
-  // Create build folder
-  await fs.rm(BUILD_DIR, { recursive: true, force: true });
-  await fs.mkdir(BUILD_DIR, { recursive: true });
+  // 0. Theme selector
+  if(THEME_ID) await previewTheme(THEME_ID);
 
   // 1. Authentification
   // await authenticateStorefront();
