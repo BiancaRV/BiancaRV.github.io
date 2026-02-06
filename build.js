@@ -275,7 +275,7 @@ async function main() {
   if(THEME_ID) await previewTheme(THEME_ID);
 
   // 1. Authentification
-  // await authenticateStorefront();
+  await authenticateStorefront();
 
   // 3. Récupérer les urls dans la sitemap
   const urls = await parseShopifySitemap(`${STORE_URL}/sitemap.xml`);
